@@ -1,0 +1,131 @@
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Header ── */
+.header {
+  background: #D64A2A;
+  padding: 20px 24px 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to right,
+    transparent,
+    transparent 36px,
+    rgba(143, 179, 200, 0.35) 36px,
+    rgba(143, 179, 200, 0.35) 40px
+  );
+  pointer-events: none;
+}
+
+.header-inner {
+  position: relative;
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.logo-text {
+  font-size: 2.2rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.logo-sub {
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.85);
+  text-transform: uppercase;
+}
+
+/* ── Calendar ── */
+.calendar-wrap {
+  flex: 1;
+  padding: 24px 16px 32px;
+  max-width: 820px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Override FullCalendar defaults to match brand */
+:root {
+  --fc-border-color: #e8ddc8;
+  --fc-today-bg-color: #fff3e0;
+  --fc-button-bg-color: #D64A2A;
+  --fc-button-border-color: #D64A2A;
+  --fc-button-hover-bg-color: #b83a1e;
+  --fc-button-hover-border-color: #b83a1e;
+  --fc-button-active-bg-color: #b83a1e;
+  --fc-button-active-border-color: #b83a1e;
+  --fc-page-bg-color: transparent;
+}
+
+.fc .fc-toolbar-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-transform: capitalize;
+  color: #2c2c2c;
+}
+
+.fc .fc-daygrid-day-number {
+  color: #555;
+  font-size: 0.85rem;
+}
+
+.fc .fc-col-header-cell-cushion {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #888;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Booked background event */
+.fc-bg-event {
+  opacity: 0.45 !important;
+}
+
+/* ── State messages ── */
+.state-msg {
+  text-align: center;
+  padding: 48px 0;
+  color: #888;
+  font-size: 0.95rem;
+}
+
+.state-msg.error {
+  color: #D64A2A;
+}
+
+/* ── Footer ── */
+.footer {
+  text-align: center;
+  padding: 12px;
+  font-size: 1.4rem;
+}
+
+/* ── Mobile ── */
+@media (max-width: 480px) {
+  .logo-text {
+    font-size: 1.7rem;
+  }
+
+  .calendar-wrap {
+    padding: 16px 8px 24px;
+  }
+
+  .fc .fc-toolbar-title {
+    font-size: 0.95rem;
+  }
+}
