@@ -1,11 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import nlLocale from '@fullcalendar/core/locales/nl'
-import type { EventInput } from '@fullcalendar/core'
+import type { DayCellContentArg, EventInput } from '@fullcalendar/core'
 import './App.css'
 
-// Field names from gd_Bookings — confirmed on first workflow run
 const START_FIELD = 'gd_startdate'
 const END_FIELD = 'gd_enddate'
 const ID_FIELD = 'gd_bookingid'
@@ -20,6 +19,8 @@ interface DataverseResponse {
 
 export default function App() {
   const [events, setEvents] = useState<EventInput[]>([])
+  const [departureDates, setDepartureDates] = useState<Set<string>>(new Set())
+  const [arrivalDates, setArrivalDates] = useState<Set<string>>(new Set())
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
 
@@ -30,21 +31,48 @@ export default function App() {
         return r.json() as Promise<DataverseResponse>
       })
       .then(data => {
-        setEvents(
-          data.value.map((b, i) => ({
+        const deps = new Set<string>()
+        const arrs = new Set<string>()
+        const evts: EventInput[] = []
+
+        for (const [i, b] of data.value.entries()) {
+          const start = b[START_FIELD]?.substring(0, 10)
+          const end = b[END_FIELD]?.substring(0, 10)
+          if (start) arrs.add(start)
+          if (end) deps.add(end)
+          evts.push({
             id: b[ID_FIELD] ?? String(i),
             title: 'Geboekt',
-            start: b[START_FIELD]?.substring(0, 10),
-            end: b[END_FIELD]?.substring(0, 10),
+            start,
+            end,
             allDay: true,
             display: 'background',
             backgroundColor: '#D64A2A',
-          }))
-        )
+          })
+        }
+
+        setDepartureDates(deps)
+        setArrivalDates(arrs)
+        setEvents(evts)
       })
       .catch(() => setError(true))
       .finally(() => setLoading(false))
   }, [])
+
+  const cellClassNames = useCallback(
+    ({ date }: DayCellContentArg) => {
+      const y = date.getFullYear()
+      const m = String(date.getMonth() + 1).padStart(2, '0')
+      const d = String(date.getDate()).padStart(2, '0')
+      const dateStr = `${y}-${m}-${d}`
+      const isDep = departureDates.has(dateStr)
+      const isArr = arrivalDates.has(dateStr)
+      if (isDep && isArr) return ['fc-transition-day']
+      if (isDep) return ['fc-departure-day']
+      return []
+    },
+    [departureDates, arrivalDates],
+  )
 
   return (
     <div className="app">
@@ -64,6 +92,7 @@ export default function App() {
             initialView="dayGridMonth"
             locale={nlLocale}
             events={events}
+            dayCellClassNames={cellClassNames}
             headerToolbar={{
               left: 'prev',
               center: 'title',
