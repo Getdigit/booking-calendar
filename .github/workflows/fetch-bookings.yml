@@ -57,7 +57,7 @@ jobs:
             -H "Authorization: Bearer ${{ steps.auth.outputs.token }}" \
             -H "OData-MaxVersion: 4.0" -H "OData-Version: 4.0" \
             -H "Accept: application/json" \
-            "${DATAVERSE_URL}/api/data/v9.2/${ENTITY_SET}?\$select=${ID_FIELD},${START_FIELD},${END_FIELD}&\$filter=statecode eq 0&\$orderby=${START_FIELD} asc")
+            "${DATAVERSE_URL}/api/data/v9.2/${ENTITY_SET}?\$select=${ID_FIELD},${START_FIELD},${END_FIELD}&\$filter=statecode%20eq%200&\$orderby=${START_FIELD}%20asc")
 
           echo "HTTP status: $HTTP_CODE"
           if [ "$HTTP_CODE" != "200" ]; then
