@@ -91,37 +91,33 @@
   letter-spacing: 0.05em;
 }
 
-/* Booked background event */
-.fc-bg-event {
-  opacity: 0.45 !important;
+/* ── Booked day: full cell colored ── */
+.fc-daygrid-day.fc-booked-day {
+  background: rgba(214, 74, 42, 0.45);
 }
 
 /* ── Departure day: top-left triangle colored, bottom-right empty ── */
-/* Used when a booking ends on this day and no new one starts */
-.fc-daygrid-day.fc-departure-day .fc-daygrid-day-frame {
+.fc-daygrid-day.fc-departure-day {
   background: linear-gradient(
     to bottom right,
-    rgba(214, 74, 42, 0.38) 50%,
+    rgba(214, 74, 42, 0.45) 50%,
     transparent 50%
   );
 }
 
-/* ── Arrival day: bottom-right triangle colored, top-left masked ── */
-/* Used when a new booking starts on this day (previous day was free) */
-.fc-daygrid-day.fc-arrival-day .fc-daygrid-day-frame {
-  position: relative;
-}
-.fc-daygrid-day.fc-arrival-day .fc-daygrid-day-frame::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to bottom right, #fff 50%, transparent 50%);
-  pointer-events: none;
-  z-index: 3;
+/* ── Arrival day: bottom-right triangle colored, top-left empty ── */
+.fc-daygrid-day.fc-arrival-day {
+  background: linear-gradient(
+    to bottom right,
+    transparent 50%,
+    rgba(214, 74, 42, 0.45) 50%
+  );
 }
 
-/* ── Transition day: full day booked + white diagonal divider ── */
-/* Used when a booking ends AND a new one starts on the same day */
+/* ── Transition day: full colored + white diagonal divider ── */
+.fc-daygrid-day.fc-transition-day {
+  background: rgba(214, 74, 42, 0.45);
+}
 .fc-daygrid-day.fc-transition-day .fc-daygrid-day-frame {
   position: relative;
 }

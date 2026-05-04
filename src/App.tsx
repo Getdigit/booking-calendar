@@ -2,12 +2,11 @@ import { useCallback, useEffect, useState } from 'react'
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import nlLocale from '@fullcalendar/core/locales/nl'
-import type { DayCellContentArg, EventInput } from '@fullcalendar/core'
+import type { DayCellContentArg } from '@fullcalendar/core'
 import './App.css'
 
 const START_FIELD = 'gd_startdate'
 const END_FIELD = 'gd_enddate'
-const ID_FIELD = 'gd_bookingid'
 
 interface Booking {
   [key: string]: string
@@ -17,8 +16,15 @@ interface DataverseResponse {
   value: Booking[]
 }
 
+function toUtcDateStr(d: Date) {
+  const y = d.getUTCFullYear()
+  const m = String(d.getUTCMonth() + 1).padStart(2, '0')
+  const day = String(d.getUTCDate()).padStart(2, '0')
+  return `${y}-${m}-${day}`
+}
+
 export default function App() {
-  const [events, setEvents] = useState<EventInput[]>([])
+  const [bookedDates, setBookedDates] = useState<Set<string>>(new Set())
   const [departureDates, setDepartureDates] = useState<Set<string>>(new Set())
   const [arrivalDates, setArrivalDates] = useState<Set<string>>(new Set())
   const [loading, setLoading] = useState(true)
@@ -33,27 +39,27 @@ export default function App() {
       .then(data => {
         const deps = new Set<string>()
         const arrs = new Set<string>()
-        const evts: EventInput[] = []
+        const booked = new Set<string>()
 
-        for (const [i, b] of data.value.entries()) {
+        for (const b of data.value) {
           const start = b[START_FIELD]?.substring(0, 10)
           const end = b[END_FIELD]?.substring(0, 10)
-          if (start) arrs.add(start)
-          if (end) deps.add(end)
-          evts.push({
-            id: b[ID_FIELD] ?? String(i),
-            title: 'Geboekt',
-            start,
-            end,
-            allDay: true,
-            display: 'background',
-            backgroundColor: '#D64A2A',
-          })
+          if (!start || !end) continue
+
+          arrs.add(start)
+          deps.add(end)
+
+          const cur = new Date(`${start}T00:00:00Z`)
+          const endDate = new Date(`${end}T00:00:00Z`)
+          while (cur < endDate) {
+            booked.add(toUtcDateStr(cur))
+            cur.setUTCDate(cur.getUTCDate() + 1)
+          }
         }
 
         setDepartureDates(deps)
         setArrivalDates(arrs)
-        setEvents(evts)
+        setBookedDates(booked)
       })
       .catch(() => setError(true))
       .finally(() => setLoading(false))
@@ -70,9 +76,10 @@ export default function App() {
       if (isDep && isArr) return ['fc-transition-day']
       if (isDep) return ['fc-departure-day']
       if (isArr) return ['fc-arrival-day']
+      if (bookedDates.has(dateStr)) return ['fc-booked-day']
       return []
     },
-    [departureDates, arrivalDates],
+    [departureDates, arrivalDates, bookedDates],
   )
 
   return (
@@ -92,7 +99,6 @@ export default function App() {
             plugins={[dayGridPlugin]}
             initialView="dayGridMonth"
             locale={nlLocale}
-            events={events}
             dayCellClassNames={cellClassNames}
             headerToolbar={{
               left: 'prev',
