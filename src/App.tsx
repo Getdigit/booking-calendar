@@ -87,6 +87,7 @@ export default function App() {
       <header className="header">
         <div className="header-inner">
           <span className="logo-text">NUMA</span>
+          <span className="logo-lobster">🦞</span>
           <span className="logo-sub">Nieuwpoort</span>
         </div>
       </header>
@@ -111,9 +112,7 @@ export default function App() {
         )}
       </main>
 
-      <footer className="footer">
-        <span className="lobster">🦞</span>
-      </footer>
+      <footer className="footer" />
     </div>
   )
 }
