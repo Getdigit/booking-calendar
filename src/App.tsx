@@ -34,8 +34,9 @@ export default function App() {
           data.value.map((b, i) => ({
             id: b[ID_FIELD] ?? String(i),
             title: 'Geboekt',
-            start: b[START_FIELD],
-            end: b[END_FIELD],
+            start: b[START_FIELD]?.substring(0, 10),
+            end: b[END_FIELD]?.substring(0, 10),
+            allDay: true,
             display: 'background',
             backgroundColor: '#D64A2A',
           }))
