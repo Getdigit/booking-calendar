@@ -69,6 +69,7 @@ export default function App() {
       const isArr = arrivalDates.has(dateStr)
       if (isDep && isArr) return ['fc-transition-day']
       if (isDep) return ['fc-departure-day']
+      if (isArr) return ['fc-arrival-day']
       return []
     },
     [departureDates, arrivalDates],

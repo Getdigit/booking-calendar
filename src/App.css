@@ -106,6 +106,20 @@
   );
 }
 
+/* ── Arrival day: bottom-right triangle colored, top-left masked ── */
+/* Used when a new booking starts on this day (previous day was free) */
+.fc-daygrid-day.fc-arrival-day .fc-daygrid-day-frame {
+  position: relative;
+}
+.fc-daygrid-day.fc-arrival-day .fc-daygrid-day-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom right, #fff 50%, transparent 50%);
+  pointer-events: none;
+  z-index: 3;
+}
+
 /* ── Transition day: full day booked + white diagonal divider ── */
 /* Used when a booking ends AND a new one starts on the same day */
 .fc-daygrid-day.fc-transition-day .fc-daygrid-day-frame {
@@ -118,12 +132,12 @@
   background: linear-gradient(
     to bottom right,
     transparent calc(50% - 2px),
-    rgba(255, 255, 255, 0.85) calc(50% - 2px),
-    rgba(255, 255, 255, 0.85) calc(50% + 2px),
+    #fff calc(50% - 2px),
+    #fff calc(50% + 2px),
     transparent calc(50% + 2px)
   );
   pointer-events: none;
-  z-index: 2;
+  z-index: 3;
 }
 
 /* ── State messages ── */
