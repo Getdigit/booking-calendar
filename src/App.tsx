@@ -101,6 +101,7 @@ export default function App() {
             initialView="dayGridMonth"
             locale={nlLocale}
             dayCellClassNames={cellClassNames}
+            validRange={{ start: new Date().toISOString().slice(0, 7) + '-01' }}
             headerToolbar={{
               left: 'prev',
               center: 'title',
