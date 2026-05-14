@@ -1,1 +1,84 @@
-{"value":[{"gd_startdate":"2025-07-29T00:00:00Z","gd_enddate":"2025-08-07T00:00:00Z"},{"gd_startdate":"2025-11-01T00:00:00Z","gd_enddate":"2025-11-02T00:00:00Z"},{"gd_startdate":"2025-11-08T00:00:00Z","gd_enddate":"2025-11-10T00:00:00Z"},{"gd_startdate":"2025-11-10T00:00:00Z","gd_enddate":"2025-11-11T00:00:00Z"},{"gd_startdate":"2025-11-11T00:00:00Z","gd_enddate":"2025-11-12T00:00:00Z"},{"gd_startdate":"2025-11-28T00:00:00Z","gd_enddate":"2025-11-30T00:00:00Z"},{"gd_startdate":"2025-12-23T00:00:00Z","gd_enddate":"2025-12-27T00:00:00Z"},{"gd_startdate":"2025-12-27T00:00:00Z","gd_enddate":"2025-12-29T00:00:00Z"},{"gd_startdate":"2026-03-06T00:00:00Z","gd_enddate":"2026-03-08T00:00:00Z"},{"gd_startdate":"2026-04-10T00:00:00Z","gd_enddate":"2026-04-12T00:00:00Z"},{"gd_startdate":"2026-05-22T00:00:00Z","gd_enddate":"2026-05-25T00:00:00Z"},{"gd_startdate":"2026-06-05T00:00:00Z","gd_enddate":"2026-06-07T00:00:00Z"},{"gd_startdate":"2026-06-12T00:00:00Z","gd_enddate":"2026-06-14T00:00:00Z"},{"gd_startdate":"2026-06-19T00:00:00Z","gd_enddate":"2026-06-21T00:00:00Z"},{"gd_startdate":"2026-07-17T00:00:00Z","gd_enddate":"2026-07-24T00:00:00Z"},{"gd_startdate":"2026-07-24T00:00:00Z","gd_enddate":"2026-07-31T00:00:00Z"},{"gd_startdate":"2026-08-07T00:00:00Z","gd_enddate":"2026-08-16T00:00:00Z"},{"gd_startdate":"2026-08-16T00:00:00Z","gd_enddate":"2026-08-21T00:00:00Z"},{"gd_startdate":"2026-09-10T00:00:00Z","gd_enddate":"2026-09-13T00:00:00Z"},{"gd_startdate":"2026-09-25T00:00:00Z","gd_enddate":"2026-09-27T00:00:00Z"}]}
+{
+  "value": [
+    {
+      "gd_startdate": "2025-07-29T00:00:00Z",
+      "gd_enddate": "2025-08-07T00:00:00Z"
+    },
+    {
+      "gd_startdate": "2025-11-01T00:00:00Z",
+      "gd_enddate": "2025-11-02T00:00:00Z"
+    },
+    {
+      "gd_startdate": "2025-11-08T00:00:00Z",
+      "gd_enddate": "2025-11-10T00:00:00Z"
+    },
+    {
+      "gd_startdate": "2025-11-10T00:00:00Z",
+      "gd_enddate": "2025-11-11T00:00:00Z"
+    },
+    {
+      "gd_startdate": "2025-11-11T00:00:00Z",
+      "gd_enddate": "2025-11-12T00:00:00Z"
+    },
+    {
+      "gd_startdate": "2025-11-28T00:00:00Z",
+      "gd_enddate": "2025-11-30T00:00:00Z"
+    },
+    {
+      "gd_startdate": "2025-12-23T00:00:00Z",
+      "gd_enddate": "2025-12-27T00:00:00Z"
+    },
+    {
+      "gd_startdate": "2025-12-27T00:00:00Z",
+      "gd_enddate": "2025-12-29T00:00:00Z"
+    },
+    {
+      "gd_startdate": "2026-03-06T00:00:00Z",
+      "gd_enddate": "2026-03-08T00:00:00Z"
+    },
+    {
+      "gd_startdate": "2026-04-10T00:00:00Z",
+      "gd_enddate": "2026-04-12T00:00:00Z"
+    },
+    {
+      "gd_startdate": "2026-05-22T00:00:00Z",
+      "gd_enddate": "2026-05-25T00:00:00Z"
+    },
+    {
+      "gd_startdate": "2026-06-05T00:00:00Z",
+      "gd_enddate": "2026-06-07T00:00:00Z"
+    },
+    {
+      "gd_startdate": "2026-06-12T00:00:00Z",
+      "gd_enddate": "2026-06-14T00:00:00Z"
+    },
+    {
+      "gd_startdate": "2026-06-19T00:00:00Z",
+      "gd_enddate": "2026-06-21T00:00:00Z"
+    },
+    {
+      "gd_startdate": "2026-07-17T00:00:00Z",
+      "gd_enddate": "2026-07-24T00:00:00Z"
+    },
+    {
+      "gd_startdate": "2026-07-24T00:00:00Z",
+      "gd_enddate": "2026-07-31T00:00:00Z"
+    },
+    {
+      "gd_startdate": "2026-08-07T00:00:00Z",
+      "gd_enddate": "2026-08-16T00:00:00Z"
+    },
+    {
+      "gd_startdate": "2026-08-16T00:00:00Z",
+      "gd_enddate": "2026-08-21T00:00:00Z"
+    },
+    {
+      "gd_startdate": "2026-09-10T00:00:00Z",
+      "gd_enddate": "2026-09-13T00:00:00Z"
+    },
+    {
+      "gd_startdate": "2026-09-25T00:00:00Z",
+      "gd_enddate": "2026-09-27T00:00:00Z"
+    }
+  ]
+}
