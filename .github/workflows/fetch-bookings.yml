@@ -10,10 +10,7 @@ permissions:
 
 env:
   DATAVERSE_URL: https://getdigit.crm4.dynamics.com
-  # OData entity set name — update if the endpoint returns a 404
   ENTITY_SET: gd_bookings
-  # Field names — update after first workflow_dispatch run (discover step shows them)
-  ID_FIELD: gd_bookingid
   START_FIELD: gd_startdate
   END_FIELD: gd_enddate
 
@@ -40,33 +37,27 @@ jobs:
           fi
           echo "token=$TOKEN" >> "$GITHUB_OUTPUT"
 
-      - name: Discover entity fields (only on manual trigger)
-        if: github.event_name == 'workflow_dispatch'
-        run: |
-          echo "=== First record keys (shows available field names) ==="
-          curl -s \
-            -H "Authorization: Bearer ${{ steps.auth.outputs.token }}" \
-            -H "OData-MaxVersion: 4.0" -H "OData-Version: 4.0" \
-            -H "Accept: application/json" \
-            "${DATAVERSE_URL}/api/data/v9.2/${ENTITY_SET}?\$top=1" \
-            | jq 'if .value[0] then .value[0] | keys else . end'
-
       - name: Fetch bookings from Dataverse
         run: |
-          HTTP_CODE=$(curl -s -o public/bookings.json -w "%{http_code}" \
+          HTTP_CODE=$(curl -s -o /tmp/bookings_raw.json -w "%{http_code}" \
             -H "Authorization: Bearer ${{ steps.auth.outputs.token }}" \
             -H "OData-MaxVersion: 4.0" -H "OData-Version: 4.0" \
             -H "Accept: application/json" \
-            "${DATAVERSE_URL}/api/data/v9.2/${ENTITY_SET}?\$select=${ID_FIELD},${START_FIELD},${END_FIELD}&\$filter=statecode%20eq%200&\$orderby=${START_FIELD}%20asc")
+            "${DATAVERSE_URL}/api/data/v9.2/${ENTITY_SET}?\$select=${START_FIELD},${END_FIELD}&\$filter=statecode%20eq%200&\$orderby=${START_FIELD}%20asc")
 
           echo "HTTP status: $HTTP_CODE"
           if [ "$HTTP_CODE" != "200" ]; then
             echo "Dataverse error response:"
-            cat public/bookings.json
+            cat /tmp/bookings_raw.json
             exit 1
           fi
+
+          # Strip everything except start/end dates — no IDs, ETags, or tenant URLs
+          jq '{value: [.value[] | {gd_startdate, gd_enddate}]}' /tmp/bookings_raw.json \
+            > public/bookings.json
+
           echo "Bookings fetched:"
-          cat public/bookings.json | jq '.value | length'
+          jq '.value | length' public/bookings.json
 
       - name: Commit if changed
         run: |
